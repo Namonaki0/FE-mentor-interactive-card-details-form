@@ -1,14 +1,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap");
+.card {
+  background: var(--color-background-soft);
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+}
+@media (min-width: 1440px) {
+  .card {
+    padding: 3rem;
+  }
+}
+
+.input-error {
+  border-color: var(--color-input-error);
+}
+
 :root {
-  /* Primary */
   --primary-gradient: linear-gradient(90deg, hsl(249, 99%, 64%), hsl(278, 94%, 30%));
   --primary-error: hsl(0, 100%, 66%);
-  /* Neutral */
   --neutral-white: hsl(0, 100%, 100%);
   --neutral-gray-200: hsl(270, 3%, 87%);
   --neutral-gray-400: hsl(212, 12%, 71%);
   --neutral-purple-950: hsl(278, 68%, 11%);
-  /* Semantic color variables for this project */
   --color-background: var(--neutral-white);
   --color-background-soft: var(--neutral-gray-200);
   --color-background-mute: var(--neutral-gray-400);
@@ -19,36 +32,6 @@
   --color-input-border-active: var(--primary-gradient);
   --color-input-error: var(--primary-error);
   --section-gap: 160px;
-  --breakpoint-mobile: 375px;
-  --breakpoint-tablet: 768px;
-  --breakpoint-desktop: 1440px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--neutral-purple-950);
-    --color-background-soft: #1a1022;
-    --color-background-mute: #22142e;
-    --color-border: var(--neutral-gray-400);
-    --color-border-hover: var(--primary-gradient);
-    --color-heading: var(--neutral-white);
-    --color-text: var(--neutral-gray-200);
-  }
-}
-.card {
-  background: var(--color-background-soft);
-  border-radius: 1rem;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
-  padding: 2rem;
-}
-@media (min-width: var(--breakpoint-desktop)) {
-  .card {
-    padding: 3rem;
-  }
-}
-
-.input-error {
-  border-color: var(--color-input-error);
 }
 
 *,
