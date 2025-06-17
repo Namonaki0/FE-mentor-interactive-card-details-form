@@ -21,7 +21,7 @@ const cardLogo = new URL('@/assets/images/card-logo.svg', import.meta.url).href
   <div class="card-wrapper">
     <img :src="cardImage" alt="Card Image" class="card-image" />
     <div class="cvc-wrapper" v-if="props.cardfacet === 'back'">
-      <p>{{ cardStore.cvv || '000' }}</p>
+      <p>{{ cardStore.cvc || '000' }}</p>
     </div>
     <div class="card-details" v-else>
       <div class="logo-wrapper">
@@ -43,7 +43,6 @@ const cardLogo = new URL('@/assets/images/card-logo.svg', import.meta.url).href
 <style lang="scss" scoped>
 .card-wrapper {
   position: relative;
-  width: clamp(300px, 75%, 400px);
 
   .card-image {
     width: 100%;
@@ -69,7 +68,7 @@ const cardLogo = new URL('@/assets/images/card-logo.svg', import.meta.url).href
       bottom: 10%;
       left: 7%;
       font-size: 12px;
-      color: white;
+      color: var(--neutral-white);
       width: calc(100% - 14%);
 
       .card-number-data {
@@ -85,6 +84,11 @@ const cardLogo = new URL('@/assets/images/card-logo.svg', import.meta.url).href
       .card-name-date {
         display: flex;
         justify-content: space-between;
+
+        .card-name {
+          text-transform: uppercase;
+          letter-spacing: 0.8px;
+        }
       }
     }
   }
@@ -97,7 +101,7 @@ const cardLogo = new URL('@/assets/images/card-logo.svg', import.meta.url).href
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    color: white;
+    color: var(--neutral-white);
 
     p {
       font-size: 14px;

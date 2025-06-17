@@ -12,25 +12,62 @@
 }
 
 .input-error {
-  border-color: var(--color-input-error);
+  border-color: var(--primary-error);
+}
+
+input::placeholder {
+  font-family: var(--font-primary);
+  color: var(--neutral-gray-400);
+}
+
+input::-webkit-input-placeholder {
+  font-family: var(--font-primary);
+  color: var(--neutral-gray-400);
+}
+
+input:-ms-input-placeholder {
+  font-family: var(--font-primary);
+  color: var(--neutral-gray-400);
+}
+
+.input-error {
+  border: 1px solid var(--primary-error) !important;
+}
+
+.error-msg {
+  color: var(--primary-error);
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+  line-height: 16px;
+}
+
+.primary-button {
+  padding: 0.75rem;
+  font-size: 1rem;
+  width: 100%;
+  background: var(--neutral-purple-950);
+  color: var(--neutral-white);
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  height: 50px;
+  transition: background 0.3s ease;
+}
+.primary-button:hover, .primary-button:focus {
+  background: var(--neutral-purple-hover);
 }
 
 :root {
+  --font-primary: "Space Grotesk", sans-serif;
   --primary-gradient: linear-gradient(90deg, hsl(249, 99%, 64%), hsl(278, 94%, 30%));
   --primary-error: hsl(0, 100%, 66%);
   --neutral-white: hsl(0, 100%, 100%);
   --neutral-gray-200: hsl(270, 3%, 87%);
   --neutral-gray-400: hsl(212, 12%, 71%);
   --neutral-purple-950: hsl(278, 68%, 11%);
-  --color-background: var(--neutral-white);
-  --color-background-soft: var(--neutral-gray-200);
-  --color-background-mute: var(--neutral-gray-400);
-  --color-border: var(--neutral-gray-400);
-  --color-border-hover: var(--primary-gradient);
-  --color-heading: var(--neutral-purple-950);
-  --color-text: var(--neutral-purple-950);
-  --color-input-border-active: var(--primary-gradient);
-  --color-input-error: var(--primary-error);
+  --neutral-purple-hover: hsl(279, 38%, 26%);
   --section-gap: 160px;
 }
 

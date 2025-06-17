@@ -1,4 +1,6 @@
 :root {
+  --font-primary: 'Space Grotesk', sans-serif;
+
   --primary-gradient: linear-gradient(90deg, hsl(249, 99%, 64%), hsl(278, 94%, 30%));
   --primary-error: hsl(0, 100%, 66%);
 
@@ -6,19 +8,7 @@
   --neutral-gray-200: hsl(270, 3%, 87%);
   --neutral-gray-400: hsl(212, 12%, 71%);
   --neutral-purple-950: hsl(278, 68%, 11%);
-
-  --color-background: var(--neutral-white);
-  --color-background-soft: var(--neutral-gray-200);
-  --color-background-mute: var(--neutral-gray-400);
-
-  --color-border: var(--neutral-gray-400);
-  --color-border-hover: var(--primary-gradient);
-
-  --color-heading: var(--neutral-purple-950);
-  --color-text: var(--neutral-purple-950);
-
-  --color-input-border-active: var(--primary-gradient);
-  --color-input-error: var(--primary-error);
+  --neutral-purple-hover: hsl(279, 38%, 26%);
 
   --section-gap: 160px;
 }
@@ -27,3 +17,4 @@
 $breakpoint-mobile: 370px;
 $breakpoint-tablet: 768px;
 $breakpoint-desktop: 1024px;
+$breakpoint-large: 1440px;

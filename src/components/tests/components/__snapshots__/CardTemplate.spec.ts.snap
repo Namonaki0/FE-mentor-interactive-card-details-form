@@ -1,0 +1,61 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CardTemplate.vue > matches snapshot 1`] = `
+<div>
+  <div
+    class="card-wrapper"
+    data-v-6bd020e7=""
+  >
+    <img
+      alt="Card Image"
+      class="card-image"
+      data-v-6bd020e7=""
+      src="http://localhost:3000/src/assets/images/bg-card-front.png"
+    />
+    <div
+      class="card-details"
+      data-v-6bd020e7=""
+    >
+      <div
+        class="logo-wrapper"
+        data-v-6bd020e7=""
+      >
+        <img
+          alt="Card Logo"
+          class="card-logo"
+          data-v-6bd020e7=""
+          src="data:image/svg+xml,%3csvg%20width='84'%20height='47'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cellipse%20cx='23.478'%20cy='23.5'%20rx='23.478'%20ry='23.5'%20fill='%23fff'/%3e%3cpath%20d='M83.5%2023.5c0%205.565-4.507%2010.075-10.065%2010.075-5.559%200-10.065-4.51-10.065-10.075%200-5.565%204.506-10.075%2010.065-10.075%205.558%200%2010.065%204.51%2010.065%2010.075Z'%20stroke='%23fff'/%3e%3c/svg%3e"
+        />
+      </div>
+      <div
+        class="card-data-wrapper"
+        data-v-6bd020e7=""
+      >
+        <p
+          class="card-number-data"
+          data-v-6bd020e7=""
+        >
+          1234 5678 1234 5678
+        </p>
+        <div
+          class="card-name-date"
+          data-v-6bd020e7=""
+        >
+          <p
+            class="card-name"
+            data-v-6bd020e7=""
+          >
+            Andre F.
+          </p>
+          <p
+            class="card-date"
+            data-v-6bd020e7=""
+          >
+            08/29
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

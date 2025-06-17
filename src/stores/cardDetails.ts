@@ -6,7 +6,7 @@ export const useCardDetailsStore = defineStore('cardDetails', () => {
   const cardNumber = ref('')
   const expiryDateMonth = ref('')
   const expiryDateYear = ref('')
-  const cvv = ref('')
+  const cvc = ref('')
 
   const formattedCardNumber = computed({
     get() {
@@ -20,14 +20,12 @@ export const useCardDetailsStore = defineStore('cardDetails', () => {
     },
   })
 
-  const handleSubmit = () => {
-    console.log('Card Details Submitted:', {
-      cardName: cardName.value,
-      cardNumber: formattedCardNumber.value,
-      expiryDateMonth: expiryDateMonth.value,
-      expiryDateYear: expiryDateYear.value,
-      cvv: cvv.value,
-    })
+  function reset() {
+    cardName.value = ''
+    cardNumber.value = ''
+    expiryDateMonth.value = ''
+    expiryDateYear.value = ''
+    cvc.value = ''
   }
 
   return {
@@ -35,8 +33,8 @@ export const useCardDetailsStore = defineStore('cardDetails', () => {
     cardNumber,
     expiryDateMonth,
     expiryDateYear,
-    cvv,
+    cvc,
     formattedCardNumber,
-    handleSubmit,
+    reset,
   }
 })
