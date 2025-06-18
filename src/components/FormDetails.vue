@@ -9,6 +9,9 @@ const emit = defineEmits<{
 const cardStore = useCardDetailsStore()
 
 const errors = ref<Record<string, string>>({})
+const monthRef = ref<HTMLInputElement | null>(null)
+const yearRef = ref<HTMLInputElement | null>(null)
+const cvcRef = ref<HTMLInputElement | null>(null)
 
 const setError = (field: string, message: string) => {
   errors.value[field] = message
@@ -27,6 +30,8 @@ function handleCardNameInput(e: Event) {
     setError('cardName', "can't be blank")
   } else if (input.value !== cleaned) {
     setError('cardName', 'Wrong format, only letters and hyphens allowed')
+  } else if (input.value.length >= 22) {
+    setError('cardName', 'Maximum character limit reached')
   } else {
     clearError('cardName')
   }
@@ -45,6 +50,10 @@ function handleCardNumberInput(e: Event) {
   } else {
     clearError('cardNumber')
   }
+
+  if (formatted.length === 19) {
+    monthRef.value?.focus()
+  }
 }
 
 function handleMonthInput(e: Event) {
@@ -62,6 +71,10 @@ function handleMonthInput(e: Event) {
     setError('month', 'Invalid month')
   } else {
     clearError('month')
+  }
+
+  if (raw.length === 2) {
+    yearRef.value?.focus()
   }
 }
 
@@ -88,6 +101,10 @@ function handleYearInput(e: Event) {
     setError('year', 'Invalid year')
   } else {
     clearError('year')
+  }
+
+  if (raw.length === 2) {
+    cvcRef.value?.focus()
   }
 }
 
@@ -198,6 +215,7 @@ const expiryErrorMsg = computed(() => errors.value.month || errors.value.year ||
           <span class="label">Exp. Date (MM/YY)</span>
           <div class="expiry-date-inputs">
             <input
+              ref="monthRef"
               type="text"
               id="expiryDateMonth"
               v-model="cardStore.expiryDateMonth"
@@ -209,6 +227,7 @@ const expiryErrorMsg = computed(() => errors.value.month || errors.value.year ||
               :class="{ 'input-error': errors.month }"
             />
             <input
+              ref="yearRef"
               type="text"
               id="expiryDateYear"
               v-model="cardStore.expiryDateYear"
@@ -229,6 +248,7 @@ const expiryErrorMsg = computed(() => errors.value.month || errors.value.year ||
         <div class="cvc-wrapper">
           <label for="cvc">CVC</label>
           <input
+            ref="cvcRef"
             type="text"
             id="cvc"
             v-model="cardStore.cvc"
