@@ -29,7 +29,5 @@ coverage
 
 *.tsbuildinfo
 
-*images
-
 # Local Netlify folder
 .netlify
