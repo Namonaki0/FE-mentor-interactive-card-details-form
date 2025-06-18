@@ -69,7 +69,15 @@ function handleYearInput(e: Event) {
   const input = e.target as HTMLInputElement
   let raw = input.value.replace(/\D/g, '').slice(0, 2)
   const current = new Date().getFullYear() % 100
-  if (raw.length === 2 && parseInt(raw) < current) raw = raw.slice(0, 1)
+
+  if (raw.length === 1 && parseInt(raw) < Math.floor(current / 10)) {
+    raw = ''
+  }
+
+  if (raw.length === 2 && parseInt(raw) < current) {
+    raw = raw.slice(0, 1)
+  }
+
   cardStore.expiryDateYear = raw
 
   if (!input.value) {
