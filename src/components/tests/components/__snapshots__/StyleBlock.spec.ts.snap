@@ -7,90 +7,95 @@ exports[`StyleBlock.vue > matches snapshot 1`] = `
     data-v-d14c843f=""
   >
     <div
-      data-testid="card-top"
-      data-v-826cb2f6=""
+      class="card-type-wrapper"
       data-v-d14c843f=""
     >
       <div
-        class="card-wrapper card-top"
-        data-v-6bd020e7=""
+        data-testid="card-top"
         data-v-826cb2f6=""
+        data-v-d14c843f=""
       >
-        <img
-          alt="Card Image"
-          class="card-image"
-          data-v-6bd020e7=""
-          src="http://localhost:3000/src/assets/images/bg-card-back.png"
-        />
         <div
-          class="cvc-wrapper"
+          class="card-wrapper card-top"
           data-v-6bd020e7=""
+          data-v-826cb2f6=""
         >
-          <p
+          <img
+            alt="Card Image"
+            class="card-image"
             data-v-6bd020e7=""
-          >
-            000
-          </p>
-        </div>
-      </div>
-    </div>
-    <div
-      data-testid="card-lower"
-      data-v-0fdfa55b=""
-      data-v-d14c843f=""
-    >
-      <div
-        class="card-wrapper card-lower"
-        data-v-0fdfa55b=""
-        data-v-6bd020e7=""
-      >
-        <img
-          alt="Card Image"
-          class="card-image"
-          data-v-6bd020e7=""
-          src="http://localhost:3000/src/assets/images/bg-card-front.png"
-        />
-        <div
-          class="card-details"
-          data-v-6bd020e7=""
-        >
+            src="http://localhost:3000/src/assets/images/bg-card-back.png"
+          />
           <div
-            class="logo-wrapper"
-            data-v-6bd020e7=""
-          >
-            <img
-              alt="Card Logo"
-              class="card-logo"
-              data-v-6bd020e7=""
-              src="data:image/svg+xml,%3csvg%20width='84'%20height='47'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cellipse%20cx='23.478'%20cy='23.5'%20rx='23.478'%20ry='23.5'%20fill='%23fff'/%3e%3cpath%20d='M83.5%2023.5c0%205.565-4.507%2010.075-10.065%2010.075-5.559%200-10.065-4.51-10.065-10.075%200-5.565%204.506-10.075%2010.065-10.075%205.558%200%2010.065%204.51%2010.065%2010.075Z'%20stroke='%23fff'/%3e%3c/svg%3e"
-            />
-          </div>
-          <div
-            class="card-data-wrapper"
+            class="cvc-wrapper"
             data-v-6bd020e7=""
           >
             <p
-              class="card-number-data"
               data-v-6bd020e7=""
             >
-              0000 0000 0000 0000
+              000
             </p>
+          </div>
+        </div>
+      </div>
+      <div
+        data-testid="card-lower"
+        data-v-0fdfa55b=""
+        data-v-d14c843f=""
+      >
+        <div
+          class="card-wrapper card-lower"
+          data-v-0fdfa55b=""
+          data-v-6bd020e7=""
+        >
+          <img
+            alt="Card Image"
+            class="card-image"
+            data-v-6bd020e7=""
+            src="http://localhost:3000/src/assets/images/bg-card-front.png"
+          />
+          <div
+            class="card-details"
+            data-v-6bd020e7=""
+          >
             <div
-              class="card-name-date"
+              class="logo-wrapper"
+              data-v-6bd020e7=""
+            >
+              <img
+                alt="Card Logo"
+                class="card-logo"
+                data-v-6bd020e7=""
+                src="data:image/svg+xml,%3csvg%20width='84'%20height='47'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cellipse%20cx='23.478'%20cy='23.5'%20rx='23.478'%20ry='23.5'%20fill='%23fff'/%3e%3cpath%20d='M83.5%2023.5c0%205.565-4.507%2010.075-10.065%2010.075-5.559%200-10.065-4.51-10.065-10.075%200-5.565%204.506-10.075%2010.065-10.075%205.558%200%2010.065%204.51%2010.065%2010.075Z'%20stroke='%23fff'/%3e%3c/svg%3e"
+              />
+            </div>
+            <div
+              class="card-data-wrapper"
               data-v-6bd020e7=""
             >
               <p
-                class="card-name"
+                class="card-number-data"
                 data-v-6bd020e7=""
               >
-                Jane Appleseed
+                0000 0000 0000 0000
               </p>
-              <p
-                class="card-date"
+              <div
+                class="card-name-date"
                 data-v-6bd020e7=""
               >
-                00/00
-              </p>
+                <p
+                  class="card-name"
+                  data-v-6bd020e7=""
+                >
+                  Jane Appleseed
+                </p>
+                <p
+                  class="card-date"
+                  data-v-6bd020e7=""
+                >
+                  00/00
+                </p>
+              </div>
             </div>
           </div>
         </div>
