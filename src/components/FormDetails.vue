@@ -2,36 +2,33 @@
 import { ref, computed } from 'vue'
 import { useCardDetailsStore } from '@/stores/cardDetails'
 
-const emit = defineEmits(['submitted'])
+const emit = defineEmits<{
+  (e: 'submitted'): void
+}>()
 
 const cardStore = useCardDetailsStore()
 
-const nameError = ref(false)
-const numberError = ref(false)
-const monthError = ref(false)
-const yearError = ref(false)
-const cvcError = ref(false)
+const errors = ref<Record<string, string>>({})
 
-const nameErrorMsg = ref('')
-const numberErrorMsg = ref('')
-const monthErrorMsg = ref('')
-const yearErrorMsg = ref('')
-const cvcErrorMsg = ref('')
+const setError = (field: string, message: string) => {
+  errors.value[field] = message
+}
+
+const clearError = (field: string) => {
+  delete errors.value[field]
+}
 
 function handleCardNameInput(e: Event) {
   const input = e.target as HTMLInputElement
   const cleaned = input.value.replace(/[^a-zA-Z\s'-]/g, '')
   cardStore.cardName = cleaned
-  nameError.value = input.value !== cleaned
+
   if (!input.value) {
-    nameError.value = true
-    nameErrorMsg.value = "can't be blank"
+    setError('cardName', "can't be blank")
   } else if (input.value !== cleaned) {
-    nameError.value = true
-    nameErrorMsg.value = 'Wrong format, only letters and hyphens allowed'
+    setError('cardName', 'Wrong format, only letters and hyphens allowed')
   } else {
-    nameError.value = false
-    nameErrorMsg.value = ''
+    clearError('cardName')
   }
 }
 
@@ -40,87 +37,49 @@ function handleCardNumberInput(e: Event) {
   const digits = input.value.replace(/\D/g, '').slice(0, 16)
   const formatted = digits.replace(/(.{4})/g, '$1 ').trim()
   cardStore.cardNumber = formatted
-  numberError.value = /\D/.test(input.value.replace(/\s/g, ''))
+
   if (!input.value) {
-    numberError.value = true
-    numberErrorMsg.value = "can't be blank"
+    setError('cardNumber', "can't be blank")
   } else if (/\D/.test(input.value.replace(/\s/g, ''))) {
-    numberError.value = true
-    numberErrorMsg.value = 'Wrong format, only numbers allowed'
+    setError('cardNumber', 'Wrong format, only numbers allowed')
   } else {
-    numberError.value = false
-    numberErrorMsg.value = ''
+    clearError('cardNumber')
   }
 }
 
 function handleMonthInput(e: Event) {
   const input = e.target as HTMLInputElement
   let raw = input.value.replace(/\D/g, '')
-  if (raw.length === 1 && parseInt(raw) > 1) {
-    raw = '0' + raw
-  } else if (raw.length === 2) {
-    const num = parseInt(raw)
-    if (num > 12) {
-      raw = raw.slice(0, 1)
-    }
-  }
+  if (raw.length === 1 && parseInt(raw) > 1) raw = '0' + raw
+  if (raw.length === 2 && parseInt(raw) > 12) raw = raw.slice(0, 1)
   cardStore.expiryDateMonth = raw
+
   if (!input.value) {
-    monthError.value = true
-    monthErrorMsg.value = "can't be blank"
+    setError('month', "can't be blank")
   } else if (/\D/.test(input.value)) {
-    monthError.value = true
-    monthErrorMsg.value = 'Wrong format, only numbers allowed'
+    setError('month', 'Wrong format, only numbers allowed')
   } else if (raw.length === 2 && (parseInt(raw) < 1 || parseInt(raw) > 12)) {
-    monthError.value = true
-    monthErrorMsg.value = 'Invalid month'
+    setError('month', 'Invalid month')
   } else {
-    monthError.value = false
-    monthErrorMsg.value = ''
+    clearError('month')
   }
 }
-
-function formatMonthOnBlur() {
-  const raw = cardStore.expiryDateMonth.replace(/\D/g, '')
-  if (raw.length === 1) {
-    cardStore.expiryDateMonth = '0' + raw
-  }
-}
-
-const currentYearLastTwoDigits = new Date().getFullYear() % 100
 
 function handleYearInput(e: Event) {
   const input = e.target as HTMLInputElement
   let raw = input.value.replace(/\D/g, '').slice(0, 2)
-  if (raw.length === 2 && parseInt(raw) < currentYearLastTwoDigits) {
-    raw = raw.slice(0, 1)
-  }
+  const current = new Date().getFullYear() % 100
+  if (raw.length === 2 && parseInt(raw) < current) raw = raw.slice(0, 1)
   cardStore.expiryDateYear = raw
-  if (!input.value) {
-    yearError.value = true
-    yearErrorMsg.value = "can't be blank"
-  } else if (/\D/.test(input.value)) {
-    yearError.value = true
-    yearErrorMsg.value = 'Wrong format, only numbers allowed'
-  } else if (raw.length === 2 && parseInt(raw) < currentYearLastTwoDigits) {
-    yearError.value = true
-    yearErrorMsg.value = 'Invalid year'
-  } else {
-    yearError.value = false
-    yearErrorMsg.value = ''
-  }
-}
 
-function formatYearOnBlur() {
-  let raw = cardStore.expiryDateYear.replace(/\D/g, '')
-  const currentYear = new Date().getFullYear() % 100
-  if (raw.length === 1) {
-    raw = '0' + raw
-  }
-  if (raw.length === 2 && parseInt(raw) >= currentYear) {
-    cardStore.expiryDateYear = raw
+  if (!input.value) {
+    setError('year', "can't be blank")
+  } else if (/\D/.test(input.value)) {
+    setError('year', 'Wrong format, only numbers allowed')
+  } else if (raw.length === 2 && parseInt(raw) < current) {
+    setError('year', 'Invalid year')
   } else {
-    cardStore.expiryDateYear = ''
+    clearError('year')
   }
 }
 
@@ -128,59 +87,42 @@ function handleCvcInput(e: Event) {
   const input = e.target as HTMLInputElement
   const cleaned = input.value.replace(/\D/g, '').slice(0, 3)
   cardStore.cvc = cleaned
+
   if (!input.value) {
-    cvcError.value = true
-    cvcErrorMsg.value = "can't be blank"
+    setError('cvc', "can't be blank")
   } else if (/\D/.test(input.value)) {
-    cvcError.value = true
-    cvcErrorMsg.value = 'Wrong format, only numbers allowed'
+    setError('cvc', 'Wrong format, only numbers allowed')
   } else {
-    cvcError.value = false
-    cvcErrorMsg.value = ''
+    clearError('cvc')
   }
 }
 
-function validateOnSubmit() {
+function validateOnSubmit(): boolean {
   let valid = true
 
   if (!cardStore.cardName) {
-    nameError.value = true
-    nameErrorMsg.value = "can't be blank"
+    setError('cardName', "can't be blank")
     valid = false
-  } else {
-    nameErrorMsg.value = ''
   }
 
   if (!cardStore.cardNumber) {
-    numberError.value = true
-    numberErrorMsg.value = "can't be blank"
+    setError('cardNumber', "can't be blank")
     valid = false
-  } else {
-    numberErrorMsg.value = ''
   }
 
   if (!cardStore.expiryDateMonth) {
-    monthError.value = true
-    monthErrorMsg.value = "can't be blank"
+    setError('month', "can't be blank")
     valid = false
-  } else {
-    monthErrorMsg.value = ''
   }
 
   if (!cardStore.expiryDateYear) {
-    yearError.value = true
-    yearErrorMsg.value = "can't be blank"
+    setError('year', "can't be blank")
     valid = false
-  } else {
-    yearErrorMsg.value = ''
   }
 
   if (!cardStore.cvc) {
-    cvcError.value = true
-    cvcErrorMsg.value = "can't be blank"
+    setError('cvc', "can't be blank")
     valid = false
-  } else {
-    cvcErrorMsg.value = ''
   }
 
   return valid
@@ -192,11 +134,18 @@ function handleSubmit() {
   }
 }
 
-const expiryErrorMsg = computed(() => {
-  if (monthErrorMsg.value) return monthErrorMsg.value
-  if (yearErrorMsg.value) return yearErrorMsg.value
-  return ''
-})
+function formatMonthOnBlur() {
+  const raw = cardStore.expiryDateMonth.replace(/\D/g, '')
+  if (raw.length === 1) cardStore.expiryDateMonth = '0' + raw
+}
+
+function formatYearOnBlur() {
+  const raw = cardStore.expiryDateYear.replace(/\D/g, '')
+  const current = new Date().getFullYear() % 100
+  cardStore.expiryDateYear = raw.length === 1 ? '0' + raw : parseInt(raw) >= current ? raw : ''
+}
+
+const expiryErrorMsg = computed(() => errors.value.month || errors.value.year || '')
 </script>
 <template>
   <div class="form-wrapper">
@@ -210,10 +159,12 @@ const expiryErrorMsg = computed(() => {
           placeholder="e.g. Jane Appleseed"
           maxlength="22"
           @input="handleCardNameInput"
-          :class="{ 'input-error': nameError }"
+          :class="{ 'input-error': errors.cardName }"
         />
         <Transition name="fade-slide" mode="out-in">
-          <span v-if="nameErrorMsg" :key="nameErrorMsg" class="error-msg">{{ nameErrorMsg }}</span>
+          <span v-if="errors.cardName" :key="errors.cardName" class="error-msg">{{
+            errors.cardName
+          }}</span>
         </Transition>
       </div>
       <div class="input-wrapper">
@@ -226,15 +177,14 @@ const expiryErrorMsg = computed(() => {
           inputmode="numeric"
           maxlength="19"
           @input="handleCardNumberInput"
-          :class="{ 'input-error': numberError }"
+          :class="{ 'input-error': errors.cardNumber }"
         />
         <Transition name="fade-slide" mode="out-in">
-          <span v-if="numberErrorMsg" :key="numberErrorMsg" class="error-msg">{{
-            numberErrorMsg
+          <span v-if="errors.cardNumber" :key="errors.cardNumber" class="error-msg">{{
+            errors.cardNumber
           }}</span>
         </Transition>
       </div>
-
       <div class="input-wrapper expiry-date-cvc">
         <div class="expiry-date-wrapper">
           <span class="label">Exp. Date (MM/YY)</span>
@@ -248,7 +198,7 @@ const expiryErrorMsg = computed(() => {
               maxlength="2"
               @input="handleMonthInput"
               @blur="formatMonthOnBlur"
-              :class="{ 'input-error': monthError }"
+              :class="{ 'input-error': errors.month }"
             />
             <input
               type="text"
@@ -259,7 +209,7 @@ const expiryErrorMsg = computed(() => {
               maxlength="2"
               @input="handleYearInput"
               @blur="formatYearOnBlur"
-              :class="{ 'input-error': yearError }"
+              :class="{ 'input-error': errors.year }"
             />
           </div>
           <Transition name="fade-slide" mode="out-in">
@@ -278,10 +228,10 @@ const expiryErrorMsg = computed(() => {
             inputmode="numeric"
             maxlength="3"
             @input="handleCvcInput"
-            :class="{ 'input-error': cvcError }"
+            :class="{ 'input-error': errors.cvc }"
           />
           <Transition name="fade-slide" mode="out-in">
-            <span v-if="cvcErrorMsg" :key="cvcErrorMsg" class="error-msg">{{ cvcErrorMsg }}</span>
+            <span v-if="errors.cvc" :key="errors.cvc" class="error-msg">{{ errors.cvc }}</span>
           </Transition>
         </div>
       </div>
@@ -292,100 +242,5 @@ const expiryErrorMsg = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-.form-wrapper {
-  height: 70vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-
-  @media (min-width: $breakpoint-tablet) {
-    width: 100%;
-    height: 100vh;
-    align-items: center;
-    justify-content: center;
-  }
-
-  form {
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    .input-wrapper {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 8px;
-
-      label {
-        color: var(--neutral-purple-950);
-        text-transform: uppercase;
-        font-size: 12px;
-        letter-spacing: 1px;
-        margin-bottom: 5px;
-      }
-
-      input {
-        color: var(--neutral-purple-950);
-        font-family: var(--font-primary);
-        cursor: pointer;
-        border: 1px solid var(--neutral-gray-400);
-        border-radius: 6px;
-        transition: all 0.5s ease;
-
-        &:focus {
-          outline: none;
-          border: 1px solid var(--neutral-purple-950);
-        }
-      }
-
-      .expiry-date-wrapper {
-        width: 50%;
-
-        .expiry-date-inputs {
-          display: flex;
-          gap: 8px;
-        }
-      }
-
-      .cvc-wrapper {
-        flex: 2;
-      }
-
-      input {
-        width: 100%;
-        padding: 0.75rem;
-        font-size: 1rem;
-      }
-    }
-
-    .expiry-date-cvc {
-      display: flex;
-      flex-direction: row;
-      align-items: baseline;
-      gap: 10px;
-    }
-  }
-}
-
-.fade-slide-enter-active,
-.fade-slide-leave-active {
-  transition:
-    opacity 0.3s,
-    transform 0.3s;
-}
-.fade-slide-enter-from {
-  opacity: 0;
-  transform: translateX(-20px);
-}
-.fade-slide-enter-to,
-.fade-slide-leave-from {
-  opacity: 1;
-  transform: translateX(0);
-}
-.fade-slide-leave-to {
-  opacity: 0;
-  transform: translateX(20px);
-}
+@import '@/assets/styles/components/form-details';
 </style>

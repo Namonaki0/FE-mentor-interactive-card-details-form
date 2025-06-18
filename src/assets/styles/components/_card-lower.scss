@@ -1,0 +1,19 @@
+.card-lower {
+  width: 280px;
+  transform: translateX(-30px) translateY(-41px);
+  transition: all 0.2s ease-in-out;
+
+  @media (min-width: $breakpoint-tablet) {
+    transform: translateX(-100px) translateY(130px);
+    width: 380px;
+  }
+
+  @media (min-width: $breakpoint-desktop) {
+    transform: translateX(70px) translateY(-410px);
+  }
+
+  @media (min-width: $breakpoint-large) {
+    transform: translateX(150px) translateY(-410px);
+    width: 420px;
+  }
+}

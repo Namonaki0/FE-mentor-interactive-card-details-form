@@ -4,11 +4,13 @@ import { useCardDetailsStore } from '@/stores/cardDetails'
 
 const cardStore = useCardDetailsStore()
 
-const props = defineProps<{
+interface CardTemplateProps {
   cardfacet?: string
-}>()
+}
 
-const cardImage = computed(() => {
+const props = defineProps<CardTemplateProps>()
+
+const cardImage = computed<string>(() => {
   return props.cardfacet === 'back'
     ? new URL(`@/assets/images/bg-card-back.png`, import.meta.url).href
     : new URL(`@/assets/images/bg-card-front.png`, import.meta.url).href
@@ -41,72 +43,5 @@ const cardLogo = new URL('@/assets/images/card-logo.svg', import.meta.url).href
 </template>
 
 <style lang="scss" scoped>
-.card-wrapper {
-  position: relative;
-
-  .card-image {
-    width: 100%;
-    display: block;
-  }
-
-  .card-details {
-    .logo-wrapper {
-      position: absolute;
-      top: 12%;
-      left: 7%;
-      width: 25%;
-      height: auto;
-
-      .card-logo {
-        width: 100%;
-        display: block;
-      }
-    }
-
-    .card-data-wrapper {
-      position: absolute;
-      bottom: 10%;
-      left: 7%;
-      font-size: 12px;
-      color: var(--neutral-white);
-      width: calc(100% - 14%);
-
-      .card-number-data {
-        font-size: 1.23rem;
-        letter-spacing: 1px;
-
-        @media (min-width: $breakpoint-tablet) {
-          font-size: 1.5rem;
-          letter-spacing: 3px;
-        }
-      }
-
-      .card-name-date {
-        display: flex;
-        justify-content: space-between;
-
-        .card-name {
-          text-transform: uppercase;
-          letter-spacing: 0.8px;
-        }
-      }
-    }
-  }
-
-  .cvc-wrapper {
-    position: absolute;
-    top: 42%;
-    right: 12%;
-    height: 15%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    color: var(--neutral-white);
-
-    p {
-      font-size: 14px;
-      margin-bottom: 3px;
-    }
-  }
-}
+@import '@/assets/styles/components/card-template';
 </style>

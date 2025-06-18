@@ -33,25 +33,5 @@ function handleConfirmation() {
   </div>
 </template>
 <style lang="scss" scoped>
-.app-wrapper {
-  height: 100vh;
-  background: var(--neutral-white);
-
-  @media (min-width: $breakpoint-desktop) {
-    display: flex;
-  }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.4s;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-.fade-enter-to,
-.fade-leave-from {
-  opacity: 1;
-}
+@import '@/assets/styles/components/template-states';
 </style>

@@ -1,0 +1,25 @@
+@import '@/assets/styles/mixins';
+.style-block-wrapper {
+  background-repeat: no-repeat;
+  height: 30vh;
+  width: 100%;
+  background-image: url('@/assets/images/bg-main-mobile.png');
+  background-size: cover;
+
+  @media (min-width: $breakpoint-tablet) {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  @media (min-width: $breakpoint-desktop) {
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 40%;
+    background-image: url('@/assets/images/bg-main-desktop.png');
+  }
+
+  .card-type-wrapper {
+    @include flex-center;
+    flex-direction: column;
+  }
+}
