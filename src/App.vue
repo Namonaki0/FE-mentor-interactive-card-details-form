@@ -31,7 +31,29 @@ function handleConfirmation() {
       />
     </Transition>
   </div>
+  <div class="landscape-warning" style="display: none">
+    <p>Please rotate your device back to portrait mode for the best experience.</p>
+  </div>
 </template>
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/assets/styles/components/template-states';
+
+@media screen and (orientation: landscape) and (max-width: 768px) {
+  .app-wrapper {
+    display: none !important;
+  }
+
+  .landscape-warning {
+    display: flex !important;
+    padding: 2rem;
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--color-text);
+    background-color: var(--color-background-soft);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
 </style>

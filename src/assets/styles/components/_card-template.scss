@@ -14,6 +14,10 @@
       width: 25%;
       height: auto;
 
+      @media (min-width: $breakpoint-desktop) {
+        width: 22%;
+      }
+
       .card-logo {
         width: 100%;
         display: block;
@@ -36,6 +40,10 @@
           font-size: 1.5rem;
           letter-spacing: 3px;
         }
+
+        @media (min-width: $breakpoint-desktop) {
+          margin-bottom: 15px;
+        }
       }
 
       .card-name-date {
@@ -45,6 +53,16 @@
         .card-name {
           text-transform: uppercase;
           letter-spacing: 0.8px;
+
+          @media (min-width: $breakpoint-desktop) {
+            font-size: 16px;
+          }
+        }
+
+        .card-date {
+          @media (min-width: $breakpoint-desktop) {
+            font-size: 16px;
+          }
         }
       }
     }
@@ -63,6 +81,10 @@
     p {
       font-size: 14px;
       margin-bottom: 3px;
+
+      @media (min-width: $breakpoint-desktop) {
+        font-size: 16px;
+      }
     }
   }
 }
